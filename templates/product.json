@@ -44,10 +44,10 @@
       "settings": {
         "eyebrow": "GOOD TO KNOW",
         "heading": "A little more detail.",
+        "animation": "theme",
         "padding_top": 72,
         "color_scheme": "light",
-        "padding_bottom": 72,
-        "animation": "theme"
+        "padding_bottom": 72
       },
       "blocks": {
         "block-1": {

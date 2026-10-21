@@ -37,12 +37,12 @@
         "intro": "The important things are often the simplest.",
         "eyebrow": "WHAT GUIDES US",
         "heading": "Care in every detail.",
+        "animation": "theme",
         "button_url": "/products",
         "padding_top": 72,
         "button_label": "Browse our products",
         "color_scheme": "white",
-        "padding_bottom": 80,
-        "animation": "theme"
+        "padding_bottom": 80
       },
       "blocks": {
         "block-1": {

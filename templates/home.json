@@ -9,6 +9,7 @@
         "eyebrow": "YOUR STUDIO · CURATED FINDS",
         "heading": "Good things, thoughtfully made.",
         "card_url": "/products",
+        "animation": "none",
         "small_note": "Thoughtful details. Everyday inspiration.",
         "card_kicker": "EXPLORE MORE",
         "padding_top": 76,
@@ -19,8 +20,7 @@
         "secondary_url": "/about",
         "padding_bottom": 72,
         "secondary_label": "Our story",
-        "show_floating_card": true,
-        "animation": "none"
+        "show_floating_card": true
       },
       "blocks": {},
       "block_order": []
@@ -30,10 +30,10 @@
       "type": "foundation_benefits",
       "hidden": false,
       "settings": {
+        "animation": "theme",
         "padding_top": 24,
         "color_scheme": "light",
-        "padding_bottom": 24,
-        "animation": "theme"
+        "padding_bottom": 24
       },
       "blocks": {
         "block-1": {
@@ -104,10 +104,10 @@
         "intro": "Good things to discover, wherever your interests lead.",
         "eyebrow": "BROWSE BY INTEREST",
         "heading": "Find your next favourite.",
+        "animation": "theme",
         "padding_top": 80,
         "color_scheme": "light",
-        "padding_bottom": 80,
-        "animation": "theme"
+        "padding_bottom": 80
       },
       "blocks": {
         "block-1": {
@@ -149,12 +149,12 @@
         "intro": "A considered experience, from the first look to the finishing touch.",
         "eyebrow": "THE THOUGHT BEHIND IT",
         "heading": "Good design is in the details.",
+        "animation": "theme",
         "button_url": "/about",
         "padding_top": 88,
         "button_label": "Learn about us",
         "color_scheme": "white",
-        "padding_bottom": 88,
-        "animation": "theme"
+        "padding_bottom": 88
       },
       "blocks": {
         "block-1": {
@@ -193,12 +193,12 @@
         "quote": "Less noise. More of the good stuff.",
         "eyebrow": "OUR THINKING",
         "link_url": "/about",
+        "animation": "theme",
         "link_label": "Read our story",
         "attribution": "",
         "padding_top": 96,
         "color_scheme": "highlight",
-        "padding_bottom": 96,
-        "animation": "theme"
+        "padding_bottom": 96
       },
       "blocks": {},
       "block_order": []
@@ -253,12 +253,12 @@
         "body": "Take a look around and find something worth keeping.",
         "eyebrow": "DISCOVER SOMETHING NEW",
         "heading": "Your next favourite is waiting.",
+        "animation": "theme",
         "button_url": "/products",
         "padding_top": 96,
         "button_label": "Explore the collection",
         "color_scheme": "dark",
-        "padding_bottom": 96,
-        "animation": "theme"
+        "padding_bottom": 96
       },
       "blocks": {},
       "block_order": []

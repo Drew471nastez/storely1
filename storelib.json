@@ -22,6 +22,9 @@
     "sections/<type>.json"
   ],
   "edited_built_ins": [
+    "blocks/button.storelib",
+    "blocks/heading.storelib",
+    "blocks/text.storelib",
     "sections/about_founder.storelib",
     "sections/about_image.storelib",
     "sections/about_timeline.storelib",
