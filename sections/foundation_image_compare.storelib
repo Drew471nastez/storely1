@@ -42,7 +42,7 @@
 // Each section script receives only its own `root` from Storelib's sandbox.
 // Never access the page document or attach global event handlers.
 const area = root.querySelector('.fw-ic__area');
-const slider = area && area.querySelector('input[type="range"]');
+const slider = root.querySelector('.fw-ic__area input[type="range"]');
 
 if (area && slider) {
   const updateComparison = () => {
