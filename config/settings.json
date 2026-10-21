@@ -26,7 +26,7 @@
   "font_body": "Inter",
   "seo_title": "Your Studio — Explore our collection",
   "brand_name": "Your Studio",
-  "custom_css": "header, [data-section-id=\"header\"] { transition: transform 180ms cubic-bezier(0, 0, 0.2, 1) !important; } @media (prefers-reduced-motion: reduce) { header, [data-section-id=\"header\"] { transition: none !important; } } ::view-transition-old(root), ::view-transition-new(root), ::view-transition-group(root) { animation: none !important; opacity: 1 !important; }",
+  "custom_css": "[data-section-id=\"header\"], [data-section-id=\"header\"] header { transition: transform 280ms cubic-bezier(0.32, 0.72, 0, 1) !important; will-change: auto !important; overflow-anchor: none; } @media (prefers-reduced-motion: reduce) { [data-section-id=\"header\"], [data-section-id=\"header\"] header { transition: none !important; } } ::view-transition-old(root), ::view-transition-new(root), ::view-transition-group(root) { animation: none !important; opacity: 1 !important; }",
   "logo_width": 72,
   "page_width": 1280,
   "text_color": "#18201C",
