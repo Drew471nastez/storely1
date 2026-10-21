@@ -7,7 +7,7 @@
    is the collection's name until somebody types another.
    =========================================================================== #}
 <template>
-<section class="s" data-scheme="{{ settings.color_scheme }}" style="--s-bg: {{ scheme.bg }}; --s-text: {{ scheme.text }}; --s-heading: {{ scheme.heading }}; --s-para: {{ scheme.paragraph }}; --s-border: {{ scheme.border }}; --s-accent: {{ scheme.accent }}; --s-btn: {{ scheme.primary_btn_bg }}; --s-btn-text: {{ scheme.primary_btn_text }}; --s-btn2: {{ scheme.secondary_btn_bg }}; --s-btn2-text: {{ scheme.secondary_btn_text }}; --s-btn2-border: {{ scheme.secondary_btn_border }}; --s-btn2-hover: {{ scheme.secondary_btn_hover_bg }}; --s-btn2-hover-text: {{ scheme.secondary_btn_hover_text }}; --s-radius: {{ theme.radius.medium }}px; --s-pt: {{ settings.padding_top }}px; --s-pb: {{ settings.padding_bottom }}px; --cols-d: {{ settings.columns.desktop }}; --cols-t: {{ settings.columns.tablet }}; --cols-m: {{ settings.columns.mobile }};">
+<section class="s" data-scheme="{{ settings.color_scheme }}" style="--s-bg: {{ scheme.bg }}; --s-text: {{ scheme.text }}; --s-heading: {{ scheme.heading }}; --s-para: {{ scheme.paragraph }}; --s-border: {{ scheme.border }}; --s-accent: {{ scheme.accent }}; --s-btn: {{ scheme.primary_btn_bg }}; --s-btn-text: {{ scheme.primary_btn_text }}; --s-btn2: {{ scheme.secondary_btn_bg }}; --s-btn2-text: {{ scheme.secondary_btn_text }}; --s-btn2-border: {{ scheme.secondary_btn_border }}; --s-btn2-hover: {{ scheme.secondary_btn_hover_bg }}; --s-btn2-hover-text: {{ scheme.secondary_btn_hover_text }}; --s-radius: {{ theme.radius.medium }}px; --s-pt: {{ settings.padding_top }}px; --s-pb: {{ settings.padding_bottom }}px; --cols-d: {{ settings.columns.desktop }}; --cols-t: {{ settings.columns.tablet }}; --cols-m: {{ settings.columns.mobile }};" data-btn="{{ theme.buttons.style }}" data-btn-hover="{{ theme.buttons.hover }}">
   <div class="s__in">
     {% if settings.collection.title %}
       <div class="s__head {% if settings.align == 'center' %}s__head--center{% endif %}">
@@ -36,7 +36,7 @@
           {% endfor %}
         </div>
         {% if settings.button_text %}
-          <div class="more"><a class="s__btn" href="{{ settings.collection | url }}">{{ settings.button_text }}</a></div>
+          <div class="more"><a data-sl-button class="s__btn" href="{{ settings.collection | url }}">{{ settings.button_text }}</a></div>
         {% endif %}
       {% endif %}
     {% else %}
@@ -70,7 +70,7 @@
 @container (min-width: 640px) { .grid { grid-template-columns: repeat(var(--cols-t), minmax(0, 1fr)); } }
 @container (min-width: 900px) { .grid { grid-template-columns: repeat(var(--cols-d), minmax(0, 1fr)); } }
 .card { position: relative; display: flex; flex-direction: column; }
-.card__media { position: relative; overflow: hidden; border-radius: var(--s-radius); background: var(--s-border); }
+.card__media { position: relative; overflow: hidden; border-radius: var(--theme-product-card-radius, var(--theme-image-radius, var(--s-radius))); background: var(--s-border); }
 .card__media img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .card__title { margin: 14px 0 0; font-size: 15px; font-weight: 600; color: var(--s-heading); }
 .card__rating { margin: 6px 0 0; display: flex; align-items: center; gap: 6px; font-size: 13px; line-height: 1; color: var(--s-para); }
@@ -80,12 +80,12 @@
 .card__was { font-size: 13px; font-weight: 400; color: var(--s-para); opacity: 0.7; }
 .card__link { position: absolute; inset: 0; }
 .badges { position: absolute; top: 10px; left: 10px; z-index: 1; display: flex; flex-wrap: wrap; gap: 6px; max-width: calc(100% - 20px); }
-.tag { padding: 4px 9px; border-radius: 999px; font-size: 11px; font-weight: 600; background: var(--s-btn); color: var(--s-btn-text); }
+.tag { padding: 4px 9px; border-radius: var(--theme-badge-radius, 999px); font-size: 11px; font-weight: 600; background: var(--s-btn); color: var(--s-btn-text); }
 .more { display: flex; justify-content: center; margin-top: 36px; }
 .s__btn {
   display: inline-flex; align-items: center; justify-content: center;
-  padding: var(--sl-button-padding, 13px 24px); font-size: var(--sl-button-size, 15px); line-height: var(--sl-button-line-height); font-weight: var(--theme-button-weight, 600); text-decoration: none;
-  border-radius: var(--s-radius); border: 1px solid var(--s-btn2-border);
+  padding: var(--sl-button-padding, 13px 24px); font-size: var(--sl-button-size, 15px); line-height: var(--sl-button-line-height); font-family: var(--theme-font-body), sans-serif; font-weight: var(--type-button-weight, var(--theme-button-weight, 600)); letter-spacing: var(--type-button-tracking, 0); text-transform: var(--type-button-transform, none); text-decoration: none;
+  border-radius: var(--theme-button-radius, var(--s-radius)); border: 1px solid var(--s-btn2-border);
   background: var(--s-btn2); color: var(--s-btn2-text);
   transition: background-color 150ms ease, color 150ms ease;
 }
@@ -100,6 +100,12 @@
 .s button, .s input, .s select, .s textarea { max-width: 100%; }
 .s :focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
 @media (prefers-reduced-motion: reduce) { .s *, .s *::before, .s *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+
+.s[data-btn="outline"] .s__btn--primary{background:transparent;color:var(--s-btn);border-color:var(--s-btn);}
+.s[data-btn="ghost"] .s__btn--primary{background:transparent;color:var(--s-btn);border-color:transparent;}
+.s[data-btn-hover="lift"] .s__btn:hover{transform:translateY(-1px);}
+.s[data-btn-hover="scale"] .s__btn:hover{transform:scale(1.015);}
+.s[data-btn-hover="none"] .s__btn,.s[data-btn-hover="none"] .s__btn:hover{transition:none;transform:none;}
 </style>
 
 <schema>

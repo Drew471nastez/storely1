@@ -26,13 +26,9 @@
 }
 .sl-heading--center { text-align: center; }
 .sl-heading--right { text-align: right; }
-.sl-heading--small { font-size: 22px; }
+.sl-heading--small { font-size: var(--type-h4-size, 22px); font-weight: var(--type-h4-weight, 600); line-height: var(--type-h4-line-height, 1.35); letter-spacing: var(--type-h4-tracking, 0); }
 .sl-heading--medium { font-size: var(--section-heading-size, 32px); }
-.sl-heading--large { font-size: 44px; }
-@media (max-width: 749px) {
-  .sl-heading--large { font-size: 34px; }
-  .sl-heading--medium { font-size: 28px; }
-}
+.sl-heading--large { font-size: var(--type-h1-size, 44px); font-weight: var(--type-h1-weight, 700); line-height: var(--type-h1-line-height, 1.1); letter-spacing: var(--type-h1-tracking, -0.02em); }
 </style>
 
 <schema>

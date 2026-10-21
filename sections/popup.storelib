@@ -3,9 +3,9 @@
    The page opens it (data-open) and remembers a visitor who closed it
    (components/website-builder/sections/overlay-hooks.ts). In the builder it
    is drawn open, in the page, so it can be seen and edited. #}
-<div class="pop {% if page.in_editor %}pop--canvas{% endif %}" data-scheme="{{ settings.color_scheme }}" data-storelib-popup data-delay="{{ settings.delay }}" data-once="{% if settings.every_visit %}0{% else %}1{% endif %}"{% if page.in_editor %} data-open{% endif %} style="--s-bg: {{ scheme.bg }}; --s-text: {{ scheme.text }}; --s-heading: {{ scheme.heading }}; --s-para: {{ scheme.paragraph }}; --s-border: {{ scheme.border }}; --s-accent: {{ scheme.accent }}; --s-btn: {{ scheme.primary_btn_bg }}; --s-btn-text: {{ scheme.primary_btn_text }}; --s-btn-hover: {{ scheme.primary_btn_hover_bg }}; --s-btn-hover-text: {{ scheme.primary_btn_hover_text }}; --s-radius: {{ theme.radius.medium }}px; --pop-w: {{ settings.width }}px; --pop-dim: {{ settings.dim }};">
+<div class="pop {% if page.in_editor %}pop--canvas{% endif %}" data-scheme="{{ settings.color_scheme }}" data-storelib-popup data-delay="{{ settings.delay }}" data-once="{% if settings.every_visit %}0{% else %}1{% endif %}"{% if page.in_editor %} data-open{% endif %} style="--s-bg: {{ scheme.bg }}; --s-text: {{ scheme.text }}; --s-heading: {{ scheme.heading }}; --s-para: {{ scheme.paragraph }}; --s-border: {{ scheme.border }}; --s-accent: {{ scheme.accent }}; --s-btn: {{ scheme.primary_btn_bg }}; --s-btn-text: {{ scheme.primary_btn_text }}; --s-btn-hover: {{ scheme.primary_btn_hover_bg }}; --s-btn-hover-text: {{ scheme.primary_btn_hover_text }}; --s-radius: {{ theme.radius.medium }}px; --pop-w: {{ settings.width }}px; --pop-dim: {{ settings.dim }};" data-btn="{{ theme.buttons.style }}" data-btn-hover="{{ theme.buttons.hover }}">
   <div class="pop__dim" data-storelib-popup-close></div>
-  <div class="pop__card pop__card--{{ settings.position }}" role="dialog" aria-modal="false" aria-labelledby="pop-{{ section.id }}">
+  <div class="pop__card pop__card--{{ settings.position }}" role="dialog" aria-modal="false" aria-labelledby="pop-{{ section.id }}" data-popup>
     <button class="pop__x" type="button" data-storelib-popup-close aria-label="{{ settings.close_label }}">
       <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
     </button>
@@ -18,10 +18,10 @@
         <form class="pop__form" method="post" data-storelib-form="subscribe">
           <label class="pop__sr" for="pop-email-{{ section.id }}">{{ words.email_address }}</label>
           <input class="pop__input" id="pop-email-{{ section.id }}" type="email" name="email" placeholder="{{ settings.placeholder }}" required autocomplete="email">
-          <button class="pop__btn" type="submit">{{ settings.button_text }}</button>
+          <button data-sl-button class="pop__btn" type="submit">{{ settings.button_text }}</button>
         </form>
       {% elsif settings.content == 'button' and settings.button_text %}
-        <a class="pop__btn" href="{{ settings.button_url | default: '/products' | url }}">{{ settings.button_text }}</a>
+        <a data-sl-button class="pop__btn" href="{{ settings.button_url | default: '/products' | url }}">{{ settings.button_text }}</a>
       {% endif %}
       {% if settings.note %}<p class="pop__note">{{ settings.note }}</p>{% endif %}
     </div>
@@ -36,7 +36,7 @@
 .pop[data-open] .pop__dim { opacity: 1; }
 .pop__card {
   position: relative; width: min(100%, var(--pop-w)); max-height: calc(100dvh - 32px); overflow: auto;
-  background: var(--s-bg); color: var(--s-text); border-radius: var(--s-radius); box-shadow: 0 18px 50px rgba(0, 0, 0, 0.2);
+  background: var(--s-bg); color: var(--s-text); border-radius: var(--theme-popup-radius, var(--s-radius)); box-shadow: 0 18px 50px rgba(0, 0, 0, 0.2);
   opacity: 0; transform: translateY(12px); transition: opacity 220ms ease, transform 220ms ease;
 }
 .pop[data-open] .pop__card { opacity: 1; transform: none; }
@@ -61,14 +61,14 @@
 .pop__form { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
 .pop__input {
   flex: 1 1 180px; min-width: 0; padding: 12px 14px; font: inherit; font-size: 15px; color: var(--s-heading);
-  background: transparent; border: 1px solid var(--s-border); border-radius: var(--s-radius);
+  background: transparent; border: 1px solid var(--s-border); border-radius: var(--theme-input-radius, var(--s-radius));
 }
 .pop__input::placeholder { color: var(--s-para); opacity: 0.7; }
 .pop__input:focus { outline: 2px solid var(--s-accent); outline-offset: 1px; }
 .pop__btn {
   display: inline-flex; align-items: center; justify-content: center; flex: none; margin-top: 0;
-  padding: var(--sl-button-padding, 12px 22px); font: inherit; font-size: var(--sl-button-size, 15px); font-weight: var(--theme-button-weight, 600); text-decoration: none;
-  background: var(--s-btn); color: var(--s-btn-text); border: 1px solid var(--s-btn); border-radius: var(--s-radius); cursor: pointer;
+  padding: var(--sl-button-padding, 12px 22px); font: inherit; font-size: var(--sl-button-size, 15px); font-family: var(--theme-font-body), sans-serif; font-weight: var(--type-button-weight, var(--theme-button-weight, 600)); letter-spacing: var(--type-button-tracking, 0); text-transform: var(--type-button-transform, none); text-decoration: none;
+  background: var(--s-btn); color: var(--s-btn-text); border: 1px solid var(--s-btn); border-radius: var(--theme-button-radius, var(--s-radius)); cursor: pointer;
   transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
 }
 .pop__body > .pop__btn { margin-top: 20px; }

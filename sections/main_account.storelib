@@ -1,5 +1,5 @@
 <template>
-<section class="s" data-scheme="{{ settings.color_scheme }}" style="--s-bg: {{ scheme.bg }}; --s-text: {{ scheme.text }}; --s-heading: {{ scheme.heading }}; --s-para: {{ scheme.paragraph }}; --s-border: {{ scheme.border }}; --s-btn: {{ scheme.primary_btn_bg }}; --s-btn-text: {{ scheme.primary_btn_text }}; --s-btn2: {{ scheme.secondary_btn_bg }}; --s-btn2-text: {{ scheme.secondary_btn_text }}; --s-btn2-border: {{ scheme.secondary_btn_border }}; --s-btn-hover: {{ scheme.primary_btn_hover_bg }}; --s-btn-hover-text: {{ scheme.primary_btn_hover_text }}; --s-btn2-hover: {{ scheme.secondary_btn_hover_bg }}; --s-btn2-hover-text: {{ scheme.secondary_btn_hover_text }}; --s-radius: {{ theme.radius.medium }}px; --s-pt: {{ settings.padding_top }}px; --s-pb: {{ settings.padding_bottom }}px;">
+<section class="s" data-scheme="{{ settings.color_scheme }}" style="--s-bg: {{ scheme.bg }}; --s-text: {{ scheme.text }}; --s-heading: {{ scheme.heading }}; --s-para: {{ scheme.paragraph }}; --s-border: {{ scheme.border }}; --s-btn: {{ scheme.primary_btn_bg }}; --s-btn-text: {{ scheme.primary_btn_text }}; --s-btn2: {{ scheme.secondary_btn_bg }}; --s-btn2-text: {{ scheme.secondary_btn_text }}; --s-btn2-border: {{ scheme.secondary_btn_border }}; --s-btn-hover: {{ scheme.primary_btn_hover_bg }}; --s-btn-hover-text: {{ scheme.primary_btn_hover_text }}; --s-btn2-hover: {{ scheme.secondary_btn_hover_bg }}; --s-btn2-hover-text: {{ scheme.secondary_btn_hover_text }}; --s-radius: {{ theme.radius.medium }}px; --s-pt: {{ settings.padding_top }}px; --s-pb: {{ settings.padding_bottom }}px;" data-btn="{{ theme.buttons.style }}" data-btn-hover="{{ theme.buttons.hover }}">
   <div class="s__in acct acct--{{ settings.max_width }}">
     {% if customer %}
       {# The page is the customer's, laid out the way a shop's account page
@@ -81,7 +81,7 @@
               <label class="row__label" for="{{ section.id }}-name">{{ settings.name_label }}</label>
               <div class="edit">
                 <input class="edit__input" id="{{ section.id }}-name" name="name" type="text" value="{{ customer.name }}" maxlength="120" autocomplete="name" placeholder="{{ settings.name_placeholder }}" autofocus>
-                <button class="s__btn s__btn--primary" type="submit">{{ settings.save_label }}</button>
+                <button data-sl-button class="s__btn s__btn--primary" type="submit">{{ settings.save_label }}</button>
                 <a class="acct__link" href="{{ routes.account_url }}#profile">{{ settings.cancel_label }}</a>
               </div>
             </form>
@@ -135,7 +135,7 @@
           <p class="acct__empty">{{ settings.delete_text }}</p>
           <form class="del__form" method="post" action="{{ routes.account_delete_url }}" data-storelib-form="native">
             <input type="hidden" name="confirm" value="delete">
-            <button class="s__btn s__btn--secondary" type="submit">{{ settings.delete_confirm }}</button>
+            <button data-sl-button class="s__btn s__btn--secondary" type="submit">{{ settings.delete_confirm }}</button>
           </form>
         </details>
       {% endif %}
@@ -145,7 +145,7 @@
       <h1 class="s__h">{{ settings.heading }}</h1>
       <p class="acct__empty">{{ settings.signed_out_text }}</p>
       <div class="acct__actions">
-        <a class="s__btn s__btn--primary" href="{{ routes.account_login_url }}">{{ settings.signin_label }}</a>
+        <a data-sl-button class="s__btn s__btn--primary" href="{{ routes.account_login_url }}">{{ settings.signin_label }}</a>
       </div>
     {% endif %}
   </div>
@@ -228,7 +228,7 @@ a.item__row:hover .item__title { text-decoration: underline; text-underline-offs
 .edit__input {
   box-sizing: border-box; flex: 1 1 200px; min-width: 0; min-height: 48px; padding: 12px 14px;
   font: inherit; font-size: 16px; color: var(--s-text); background: var(--s-bg);
-  border: 1px solid var(--s-border); border-radius: var(--s-radius); -webkit-appearance: none; appearance: none;
+  border: 1px solid var(--s-border); border-radius: var(--theme-input-radius, var(--s-radius)); -webkit-appearance: none; appearance: none;
 }
 .edit__input::placeholder { color: var(--s-para); opacity: 0.75; }
 .edit__input:focus { outline: 2px solid var(--s-heading); outline-offset: 1px; border-color: var(--s-heading); }
@@ -253,7 +253,7 @@ a.item__row:hover .item__title { text-decoration: underline; text-underline-offs
 .s__btn {
   display: flex; align-items: center; justify-content: center; min-height: 48px;
   padding: 12px 24px; font: inherit; font-size: 15px; font-weight: 600; text-decoration: none; cursor: pointer;
-  border-radius: var(--s-radius); border: 1px solid transparent; transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
+  border-radius: var(--theme-button-radius, var(--s-radius)); box-shadow: var(--sl-btn-shadow, none); border: 1px solid transparent; transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
 }
 .s__btn--primary { background: var(--s-btn); color: var(--s-btn-text); border-color: var(--s-btn); }
 .s__btn--secondary { background: var(--s-btn2); color: var(--s-btn2-text); border-color: var(--s-btn2-border); }
@@ -273,6 +273,12 @@ a.item__row:hover .item__title { text-decoration: underline; text-underline-offs
 .s button, .s input, .s select, .s textarea { max-width: 100%; }
 .s :focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
 @media (prefers-reduced-motion: reduce) { .s *, .s *::before, .s *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+
+.s[data-btn="outline"] .s__btn--primary{background:transparent;color:var(--s-btn);border-color:var(--s-btn);}
+.s[data-btn="ghost"] .s__btn--primary{background:transparent;color:var(--s-btn);border-color:transparent;}
+.s[data-btn-hover="lift"] .s__btn:hover{transform:translateY(-1px);}
+.s[data-btn-hover="scale"] .s__btn:hover{transform:scale(1.015);}
+.s[data-btn-hover="none"] .s__btn,.s[data-btn-hover="none"] .s__btn:hover{transition:none;transform:none;}
 </style>
 
 <schema>

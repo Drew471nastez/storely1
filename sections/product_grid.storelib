@@ -1,5 +1,5 @@
 <template>
-<section class="s" data-scheme="{{ settings.color_scheme }}" style="--s-bg: {{ scheme.bg }}; --s-text: {{ scheme.text }}; --s-heading: {{ scheme.heading }}; --s-para: {{ scheme.paragraph }}; --s-border: {{ scheme.border }}; --s-accent: {{ scheme.accent }}; --s-btn: {{ scheme.primary_btn_bg }}; --s-btn-text: {{ scheme.primary_btn_text }}; --s-btn2: {{ scheme.secondary_btn_bg }}; --s-btn2-text: {{ scheme.secondary_btn_text }}; --s-btn2-border: {{ scheme.secondary_btn_border }}; --s-btn-hover: {{ scheme.primary_btn_hover_bg }}; --s-btn-hover-text: {{ scheme.primary_btn_hover_text }}; --s-btn2-hover: {{ scheme.secondary_btn_hover_bg }}; --s-btn2-hover-text: {{ scheme.secondary_btn_hover_text }}; --s-radius: {{ theme.radius.medium }}px; --s-pt: {{ settings.padding_top }}px; --s-pb: {{ settings.padding_bottom }}px; --cols-d: {{ settings.columns.desktop }}; --cols-t: {{ settings.columns.tablet }}; --cols-m: {{ settings.columns.mobile }};">
+<section class="s" data-scheme="{{ settings.color_scheme }}" style="--s-bg: {{ scheme.bg }}; --s-text: {{ scheme.text }}; --s-heading: {{ scheme.heading }}; --s-para: {{ scheme.paragraph }}; --s-border: {{ scheme.border }}; --s-accent: {{ scheme.accent }}; --s-btn: {{ scheme.primary_btn_bg }}; --s-btn-text: {{ scheme.primary_btn_text }}; --s-btn2: {{ scheme.secondary_btn_bg }}; --s-btn2-text: {{ scheme.secondary_btn_text }}; --s-btn2-border: {{ scheme.secondary_btn_border }}; --s-btn-hover: {{ scheme.primary_btn_hover_bg }}; --s-btn-hover-text: {{ scheme.primary_btn_hover_text }}; --s-btn2-hover: {{ scheme.secondary_btn_hover_bg }}; --s-btn2-hover-text: {{ scheme.secondary_btn_hover_text }}; --s-radius: {{ theme.radius.medium }}px; --s-pt: {{ settings.padding_top }}px; --s-pb: {{ settings.padding_bottom }}px; --cols-d: {{ settings.columns.desktop }}; --cols-t: {{ settings.columns.tablet }}; --cols-m: {{ settings.columns.mobile }};" data-btn="{{ theme.buttons.style }}" data-btn-hover="{{ theme.buttons.hover }}">
   <div class="s__in s__in--{{ settings.max_width }}">
     {% if settings.eyebrow or settings.heading or settings.subheading %}
       <div class="s__head {% if settings.align == 'center' %}s__head--center{% endif %} s__headblock">
@@ -46,7 +46,7 @@
             </fieldset>
             {% endfor %}
             <div class="cat__actions">
-              <button type="submit" class="cat__apply">{{ settings.apply_label }}</button>
+              <button data-sl-button type="submit" class="cat__apply">{{ settings.apply_label }}</button>
               {% if page.filters.active %}<a class="cat__clear" href="{{ page.filters.clear_url | url }}">{{ settings.clear_label }}</a>{% endif %}
             </div>
           </div>
@@ -60,10 +60,10 @@
           {% else %}
         <div class="grid">
           {% for block in products %}
-          <article class="card card__wrap" data-block-id="{{ block.id }}">
-            <div class="card__media" style="aspect-ratio: {{ settings.shape }};">
+          <article class="card card__wrap" data-card="product" data-block-id="{{ block.id }}">
+            <div class="card__media" data-card-media style="aspect-ratio: {{ settings.shape }};">
               {% if block.settings.image %}<img src="{{ block.settings.image | asset }}" alt="{{ block.settings.title }}" loading="lazy" decoding="async">{% endif %}
-              {% if block.settings.tag %}<span class="tag">{{ block.settings.tag }}</span>{% endif %}
+              {% if block.settings.tag or theme.badges.sale and block.settings.compare_price %}<span class="badges" data-badges>{% if theme.badges.sale and block.settings.compare_price %}<span class="tag" data-badge="sale">{{ theme.badges.sale_text }}</span>{% endif %}{% if block.settings.tag %}<span class="tag" data-badge="{% if block.settings.tag == 'Sold out' %}soldout{% else %}tag{% endif %}">{{ block.settings.tag }}</span>{% endif %}</span>{% endif %}
               {% if settings.show_wishlist %}<button type="button" class="heart" data-storelib-wishlist="{{ block.id }}" aria-pressed="false" aria-label="{{ words.save }} {{ block.settings.title }}"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></button>{% endif %}
             </div>
             <h3 class="card__title">{{ block.settings.title }}</h3>
@@ -194,9 +194,9 @@
     {% endif %}
     {% if settings.button_text %}
       {% if settings.source == 'collection' and settings.collection.title %}
-        <div class="s__btns more"><a class="s__btn s__btn--secondary" href="{{ settings.collection | url }}">{{ settings.button_text }}</a></div>
+        <div class="s__btns more"><a data-sl-button class="s__btn s__btn--secondary" href="{{ settings.collection | url }}">{{ settings.button_text }}</a></div>
       {% else %}
-        <div class="s__btns more"><a class="s__btn s__btn--secondary" href="{{ settings.button_url | default: '/products' | url }}">{{ settings.button_text }}</a></div>
+        <div class="s__btns more"><a data-sl-button class="s__btn s__btn--secondary" href="{{ settings.button_url | default: '/products' | url }}">{{ settings.button_text }}</a></div>
       {% endif %}
     {% endif %}
   </div>
@@ -235,8 +235,8 @@
 .s__head--center .s__btns { justify-content: center; }
 .s__btn {
   display: inline-flex; align-items: center; justify-content: center;
-  padding: var(--sl-button-padding, 13px 24px); font-size: var(--sl-button-size, 15px); line-height: var(--sl-button-line-height); font-weight: var(--theme-button-weight, 600); text-decoration: none;
-  border-radius: var(--s-radius); border: 1px solid transparent; transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
+  padding: var(--sl-button-padding, 13px 24px); font-size: var(--sl-button-size, 15px); line-height: var(--sl-button-line-height); font-family: var(--theme-font-body), sans-serif; font-weight: var(--type-button-weight, var(--theme-button-weight, 600)); letter-spacing: var(--type-button-tracking, 0); text-transform: var(--type-button-transform, none); text-decoration: none;
+  border-radius: var(--theme-button-radius, var(--s-radius)); box-shadow: var(--sl-btn-shadow, none); border: 1px solid transparent; transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
 }
 /* Each button's hover colours come from the scheme, after the section's own
    Advanced colors: automatic until somebody chooses them. */
@@ -256,7 +256,7 @@
 @container (min-width: 640px) { .grid { grid-template-columns: repeat(var(--cols-t), minmax(0, 1fr)); } }
 @container (min-width: 900px) { .grid { grid-template-columns: repeat(var(--cols-d), minmax(0, 1fr)); } }
 .card { display: flex; flex-direction: column; }
-.card__media { overflow: hidden; border-radius: var(--s-radius); background: var(--s-border); }
+.card__media { overflow: hidden; border-radius: var(--theme-product-card-radius, var(--theme-image-radius, var(--s-radius))); background: var(--s-border); }
 .card__media img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .card__title { margin: 14px 0 0; font-size: 15px; font-weight: 600; color: var(--s-heading); }
 .card__text { margin: 6px 0 0; font-size: 14px; line-height: 1.55; color: var(--s-para); }
@@ -269,11 +269,11 @@
 .card__media { position: relative; }
 /* The badges stack in one corner, so Sale and Sold out never sit on top of each other. Where, and their colours, are Theme settings › Badges. */
 .badges { position: absolute; top: 10px; left: 10px; z-index: 1; display: flex; flex-wrap: wrap; gap: 6px; max-width: calc(100% - 20px); }
-.tag { padding: 4px 9px; border-radius: 999px; font-size: 11px; font-weight: 600; background: var(--s-btn); color: var(--s-btn-text); }
+.tag { padding: 4px 9px; border-radius: var(--theme-badge-radius, 999px); font-size: 11px; font-weight: 600; background: var(--s-btn); color: var(--s-btn-text); }
 .more { justify-content: center; margin-top: 36px; }
 .pager { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px; margin-top: 40px; font-size: 14px; }
 .pager__list { display: flex; flex-wrap: wrap; gap: 4px; margin: 0; padding: 0; list-style: none; }
-.pager__num, .pager__step { display: inline-flex; align-items: center; justify-content: center; min-width: 40px; height: 40px; padding: 0 12px; border-radius: var(--s-radius); color: var(--s-heading); text-decoration: none; transition: background-color 150ms ease; }
+.pager__num, .pager__step { display: inline-flex; align-items: center; justify-content: center; min-width: 40px; height: 40px; padding: 0 12px; border-radius: var(--theme-input-radius, var(--s-radius)); color: var(--s-heading); text-decoration: none; transition: background-color 150ms ease; }
 .pager__num:hover, .pager__step:hover { background: var(--s-border); }
 .pager__num--on { background: var(--s-heading); color: var(--s-bg); font-weight: 600; }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
@@ -314,7 +314,7 @@
 .cat__sortl { display: none; }
 .cat__sort select {
   height: 40px; max-width: 44vw; padding: 0 30px 0 12px; font: inherit; font-size: 14px; color: var(--s-heading); background-color: var(--s-bg);
-  border: 1px solid var(--s-border); border-radius: var(--s-radius); -webkit-appearance: none; appearance: none;
+  border: 1px solid var(--s-border); border-radius: var(--theme-input-radius, var(--s-radius)); -webkit-appearance: none; appearance: none;
   background-image: linear-gradient(45deg, transparent 50%, currentColor 50%), linear-gradient(135deg, currentColor 50%, transparent 50%);
   background-position: calc(100% - 15px) 18px, calc(100% - 10px) 18px; background-size: 5px 5px; background-repeat: no-repeat;
 }
@@ -332,12 +332,12 @@
 .cat__lab { flex: 1 1 auto; min-width: 0; }
 .cat__n { font-size: 13px; color: var(--s-para); opacity: 0.75; font-variant-numeric: tabular-nums; }
 .cat__range { display: flex; align-items: center; gap: 8px; }
-.cat__num { flex: 1 1 0; min-width: 0; display: flex; align-items: center; gap: 4px; height: 40px; padding: 0 10px; border: 1px solid var(--s-border); border-radius: var(--s-radius); color: var(--s-para); }
+.cat__num { flex: 1 1 0; min-width: 0; display: flex; align-items: center; gap: 4px; height: 40px; padding: 0 10px; border: 1px solid var(--s-border); border-radius: var(--theme-input-radius, var(--s-radius)); color: var(--s-para); }
 .cat__num input { width: 100%; min-width: 0; border: 0; outline: none; background: transparent; font: inherit; font-size: 16px; color: var(--s-heading); -moz-appearance: textfield; }
 .cat__num input::-webkit-outer-spin-button, .cat__num input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 .cat__to { font-size: 13px; color: var(--s-para); }
 .cat__actions { display: flex; align-items: center; gap: 16px; padding-top: 14px; }
-.cat__apply { height: 40px; padding: 0 20px; font: inherit; font-size: 14px; font-weight: 600; color: var(--s-btn-text); background: var(--s-btn); border: 1px solid var(--s-btn); border-radius: var(--s-radius); cursor: pointer; }
+.cat__apply { height: 40px; padding: 0 20px; font: inherit; font-size: 14px; font-weight: 600; color: var(--s-btn-text); background: var(--s-btn); border: 1px solid var(--s-btn); border-radius: var(--theme-button-radius, var(--s-radius)); cursor: pointer; }
 .cat__clear { font-size: 14px; color: var(--s-heading); text-underline-offset: 3px; }
 .cat__results { grid-area: main; min-width: 0; container-type: inline-size; padding-top: 20px; }
 .cat__chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
@@ -366,6 +366,12 @@
 .s button, .s input, .s select, .s textarea { max-width: 100%; }
 .s :focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
 @media (prefers-reduced-motion: reduce) { .s *, .s *::before, .s *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+
+.s[data-btn="outline"] .s__btn--primary{background:transparent;color:var(--s-btn);border-color:var(--s-btn);}
+.s[data-btn="ghost"] .s__btn--primary{background:transparent;color:var(--s-btn);border-color:transparent;}
+.s[data-btn-hover="lift"] .s__btn:hover{transform:translateY(-1px);}
+.s[data-btn-hover="scale"] .s__btn:hover{transform:scale(1.015);}
+.s[data-btn-hover="none"] .s__btn,.s[data-btn-hover="none"] .s__btn:hover{transition:none;transform:none;}
 </style>
 
 <schema>

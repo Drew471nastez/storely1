@@ -11,7 +11,7 @@
    the page switcher like the shop.
    =========================================================================== #}
 <template>
-<section class="s nf" data-scheme="{{ settings.color_scheme }}" style="--s-bg: {{ scheme.bg }}; --s-text: {{ scheme.text }}; --s-heading: {{ scheme.heading }}; --s-para: {{ scheme.paragraph }}; --s-border: {{ scheme.border }}; --s-accent: {{ scheme.accent }}; --s-btn: {{ scheme.primary_btn_bg }}; --s-btn-text: {{ scheme.primary_btn_text }}; --s-btn-hover: {{ scheme.primary_btn_hover_bg }}; --s-btn-hover-text: {{ scheme.primary_btn_hover_text }}; --s-btn2: {{ scheme.secondary_btn_bg }}; --s-btn2-text: {{ scheme.secondary_btn_text }}; --s-btn2-border: {{ scheme.secondary_btn_border }}; --s-btn2-hover: {{ scheme.secondary_btn_hover_bg }}; --s-btn2-hover-text: {{ scheme.secondary_btn_hover_text }}; --s-radius: {{ theme.radius.medium }}px; --s-pt: {{ settings.padding_top }}px; --s-pb: {{ settings.padding_bottom }}px;">
+<section class="s nf" data-scheme="{{ settings.color_scheme }}" style="--s-bg: {{ scheme.bg }}; --s-text: {{ scheme.text }}; --s-heading: {{ scheme.heading }}; --s-para: {{ scheme.paragraph }}; --s-border: {{ scheme.border }}; --s-accent: {{ scheme.accent }}; --s-btn: {{ scheme.primary_btn_bg }}; --s-btn-text: {{ scheme.primary_btn_text }}; --s-btn-hover: {{ scheme.primary_btn_hover_bg }}; --s-btn-hover-text: {{ scheme.primary_btn_hover_text }}; --s-btn2: {{ scheme.secondary_btn_bg }}; --s-btn2-text: {{ scheme.secondary_btn_text }}; --s-btn2-border: {{ scheme.secondary_btn_border }}; --s-btn2-hover: {{ scheme.secondary_btn_hover_bg }}; --s-btn2-hover-text: {{ scheme.secondary_btn_hover_text }}; --s-radius: {{ theme.radius.medium }}px; --s-pt: {{ settings.padding_top }}px; --s-pb: {{ settings.padding_bottom }}px;" data-btn="{{ theme.buttons.style }}" data-btn-hover="{{ theme.buttons.hover }}">
   <div class="s__in s__in--wide">
     <div class="nf__head">
       {% if settings.heading %}<h1 class="s__h">{{ settings.heading }}</h1>{% endif %}
@@ -20,12 +20,12 @@
       {% if settings.show_search %}
         <form class="nf__find" action="/search" method="get" role="search">
           <input class="nf__input" type="search" name="q" placeholder="{{ settings.search_placeholder }}" aria-label="{{ settings.search_placeholder | default: 'Search' }}" autocomplete="off">
-          <button class="s__btn s__btn--secondary nf__go" type="submit">{{ settings.search_button | default: 'Search' }}</button>
+          <button data-sl-button class="s__btn s__btn--secondary nf__go" type="submit">{{ settings.search_button | default: 'Search' }}</button>
         </form>
       {% endif %}
 
       {% if settings.button_text %}
-        <p class="nf__home"><a class="s__btn s__btn--primary" href="{{ settings.button_url | default: '/' | url }}">{{ settings.button_text }}</a></p>
+        <p class="nf__home"><a data-sl-button class="s__btn s__btn--primary" href="{{ settings.button_url | default: '/' | url }}">{{ settings.button_text }}</a></p>
       {% endif %}
     </div>
 
@@ -74,8 +74,8 @@
 .s__sub { margin: 14px 0 0; font-size: var(--section-text-size, 17px); line-height: var(--section-text-line-height, 1.6); color: var(--s-para); }
 .s__btn {
   display: inline-flex; align-items: center; justify-content: center;
-  padding: var(--sl-button-padding, 13px 24px); font-size: var(--sl-button-size, 15px); line-height: var(--sl-button-line-height); font-weight: var(--theme-button-weight, 600); text-decoration: none;
-  border-radius: var(--s-radius); border: 1px solid transparent; transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
+  padding: var(--sl-button-padding, 13px 24px); font-size: var(--sl-button-size, 15px); line-height: var(--sl-button-line-height); font-family: var(--theme-font-body), sans-serif; font-weight: var(--type-button-weight, var(--theme-button-weight, 600)); letter-spacing: var(--type-button-tracking, 0); text-transform: var(--type-button-transform, none); text-decoration: none;
+  border-radius: var(--theme-button-radius, var(--s-radius)); box-shadow: var(--sl-btn-shadow, none); border: 1px solid transparent; transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
 }
 .s__btn--primary { background: var(--s-btn); color: var(--s-btn-text); border-color: var(--s-btn); }
 .s__btn--primary:hover { background: var(--s-btn-hover); color: var(--s-btn-hover-text); border-color: var(--s-btn-hover); }
@@ -90,7 +90,7 @@
 .nf__input {
   flex: 1 1 auto; min-width: 0; height: 48px; padding: 0 16px;
   font: inherit; font-size: 16px; color: var(--s-text); background: var(--s-bg);
-  border: 1px solid var(--s-border); border-radius: var(--s-radius);
+  border: 1px solid var(--s-border); border-radius: var(--theme-input-radius, var(--s-radius));
 }
 .nf__input:focus-visible { outline: 2px solid var(--s-accent); outline-offset: 1px; }
 .nf__go { flex: none; height: 48px; padding-block: 0; }
@@ -100,7 +100,7 @@
 .nf__grid { display: grid; gap: 20px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
 @container (min-width: 820px) { .nf__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 .card { position: relative; display: flex; flex-direction: column; }
-.card__media { overflow: hidden; border-radius: var(--s-radius); background: var(--s-border); aspect-ratio: 1 / 1; }
+.card__media { overflow: hidden; border-radius: var(--theme-product-card-radius, var(--theme-image-radius, var(--s-radius))); background: var(--s-border); aspect-ratio: 1 / 1; }
 .card__media img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .card__title { margin: 12px 0 0; font-size: 15px; font-weight: 600; color: var(--s-heading); }
 .card__price { margin: 6px 0 0; font-size: 14px; color: var(--s-para); }
@@ -114,6 +114,12 @@
 .s button, .s input, .s select, .s textarea { max-width: 100%; }
 .s :focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
 @media (prefers-reduced-motion: reduce) { .s *, .s *::before, .s *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+
+.s[data-btn="outline"] .s__btn--primary{background:transparent;color:var(--s-btn);border-color:var(--s-btn);}
+.s[data-btn="ghost"] .s__btn--primary{background:transparent;color:var(--s-btn);border-color:transparent;}
+.s[data-btn-hover="lift"] .s__btn:hover{transform:translateY(-1px);}
+.s[data-btn-hover="scale"] .s__btn:hover{transform:scale(1.015);}
+.s[data-btn-hover="none"] .s__btn,.s[data-btn-hover="none"] .s__btn:hover{transition:none;transform:none;}
 </style>
 
 <schema>

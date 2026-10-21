@@ -46,7 +46,8 @@
         "heading": "A little more detail.",
         "padding_top": 72,
         "color_scheme": "light",
-        "padding_bottom": 72
+        "padding_bottom": 72,
+        "animation": "theme"
       },
       "blocks": {
         "block-1": {

@@ -1,5 +1,5 @@
 <template>
-<section class="fbg{% if settings.show_dots %} fbg--dots{% endif %}" data-scheme="{{ settings.color_scheme }}" style="--s-bg: {{ scheme.bg }}; --fbg-btn-text: {{ settings.button_text_color }}; --fbg-head-bg: {{ settings.head_bg }}; --s-text: {{ settings.text_color }}; --s-heading: {{ settings.heading_color }}; --s-border: {{ scheme.border }}; --s-card: {{ settings.card_bg }}; --fbg-accent: {{ settings.accent_color }}; --s-radius: {{ settings.card_radius }}px; --s-pt: {{ settings.padding_top }}px; --s-pb: {{ settings.padding_bottom }}px;">
+<section class="fbg{% if settings.show_dots %} fbg--dots{% endif %}" data-scheme="{{ settings.color_scheme }}" style="--s-bg: {{ scheme.bg }}; --fbg-btn-text: {{ settings.button_text_color }}; --fbg-head-bg: {{ settings.head_bg }}; --s-text: {{ settings.text_color }}; --s-heading: {{ settings.heading_color }}; --s-border: {{ scheme.border }}; --s-card: {{ settings.card_bg }}; --fbg-accent: {{ settings.accent_color }}; --s-radius: {{ settings.card_radius }}px; --s-pt: {{ settings.padding_top }}px; --s-pb: {{ settings.padding_bottom }}px;" data-btn="{{ theme.buttons.style }}" data-btn-hover="{{ theme.buttons.hover }}">
   <div class="fbg__in fbg__in--{{ settings.max_width }}">
 
     {% if settings.heading_accent or settings.heading or settings.subheading or settings.button_text %}
@@ -25,7 +25,7 @@
       {% if forloop.first %}<div class="fbg__grid">{% endif %}
       <article class="fbg__card fbg__card--{{ block.settings.width }}" data-block-id="{{ block.id }}">
         {% if block.settings.image or block.settings.decoration != 'none' or page.in_editor %}
-        <div class="fbg__media fbg__media--{{ block.settings.decoration }}">
+        <div class="fbg__media fbg__media--{{ block.settings.decoration }}" data-media>
 
           {% if block.settings.image %}
             <div class="fbg__pic">

@@ -20,7 +20,7 @@
 <template>
 {% if reviews.enabled %}
 {% if reviews.here.summary.count > 0 or reviews.can_write or page.in_editor %}
-<section class="s rv" id="reviews" data-scheme="{{ settings.color_scheme }}" style="--s-bg: {{ scheme.bg }}; --s-text: {{ scheme.text }}; --s-heading: {{ scheme.heading }}; --s-para: {{ scheme.paragraph }}; --s-border: {{ scheme.border }}; --s-accent: {{ scheme.accent }}; --s-btn: {{ scheme.primary_btn_bg }}; --s-btn-text: {{ scheme.primary_btn_text }}; --s-btn-hover: {{ scheme.primary_btn_hover_bg }}; --s-btn-hover-text: {{ scheme.primary_btn_hover_text }}; --s-radius: {{ theme.radius.medium }}px; --s-pt: {{ settings.padding_top }}px; --s-pb: {{ settings.padding_bottom }}px; --cols-d: {{ settings.columns.desktop }}; --cols-t: {{ settings.columns.tablet }}; --cols-m: {{ settings.columns.mobile }}; --rv-star: {{ settings.star_color | default: reviews.star_color }};{% if settings.bar_color %} --rv-bar: {{ settings.bar_color }};{% endif %}{% if settings.verified_color %} --rv-ver: {{ settings.verified_color }};{% endif %}">
+<section class="s rv" id="reviews" data-scheme="{{ settings.color_scheme }}" style="--s-bg: {{ scheme.bg }}; --s-text: {{ scheme.text }}; --s-heading: {{ scheme.heading }}; --s-para: {{ scheme.paragraph }}; --s-border: {{ scheme.border }}; --s-accent: {{ scheme.accent }}; --s-btn: {{ scheme.primary_btn_bg }}; --s-btn-text: {{ scheme.primary_btn_text }}; --s-btn-hover: {{ scheme.primary_btn_hover_bg }}; --s-btn-hover-text: {{ scheme.primary_btn_hover_text }}; --s-radius: {{ theme.radius.medium }}px; --s-pt: {{ settings.padding_top }}px; --s-pb: {{ settings.padding_bottom }}px; --cols-d: {{ settings.columns.desktop }}; --cols-t: {{ settings.columns.tablet }}; --cols-m: {{ settings.columns.mobile }}; --rv-star: {{ settings.star_color | default: reviews.star_color }};{% if settings.bar_color %} --rv-bar: {{ settings.bar_color }};{% endif %}{% if settings.verified_color %} --rv-ver: {{ settings.verified_color }};{% endif %}" data-btn="{{ theme.buttons.style }}" data-btn-hover="{{ theme.buttons.hover }}">
   <div class="s__in s__in--{{ settings.max_width }}">
     {% if settings.heading %}<h2 class="s__h rv__h">{{ settings.heading }}</h2>{% endif %}
     {% if page.in_editor and reviews.sample %}<p class="rv__sample">Sample reviews. Your real reviews show here once you have some.</p>{% endif %}
@@ -75,7 +75,7 @@
           {% if reviews.photos_allowed %}<label class="rv-form__f"><span>{{ words.photos }} <span class="rv-form__opt">{{ words.optional_up_to_four }}</span></span><input type="file" name="photos" accept="image/jpeg,image/png,image/webp" multiple></label>{% endif %}
           <div class="rv-hp" aria-hidden="true"><label>Leave this empty<input name="website" tabindex="-1" autocomplete="off"></label></div>
           <p class="rv-form__note">{{ words.review_privacy }}</p>
-          <button class="rv-btn" type="submit">{{ words.post_review }}</button>
+          <button data-sl-button class="rv-btn" type="submit">{{ words.post_review }}</button>
         </form>
       </details>
     {% endif %}
@@ -165,7 +165,7 @@
 .rv__bar span { display: block; height: 100%; border-radius: inherit; background: var(--rv-star, var(--s-accent)); }
 .rv__bar-c { text-align: right; }
 
-.rv-btn { display: inline-flex; align-items: center; justify-content: center; padding: var(--sl-button-padding, 12px 22px); font-size: var(--sl-button-size, 15px); font-weight: var(--theme-button-weight, 600); border-radius: var(--s-radius); border: 1px solid var(--s-btn); background: var(--s-btn); color: var(--s-btn-text); cursor: pointer; list-style: none; transition: background-color 150ms ease, color 150ms ease; }
+.rv-btn { display: inline-flex; align-items: center; justify-content: center; padding: var(--sl-button-padding, 12px 22px); font-size: var(--sl-button-size, 15px); font-weight: var(--theme-button-weight, 600); border-radius: var(--theme-button-radius, var(--s-radius)); border: 1px solid var(--s-btn); background: var(--s-btn); color: var(--s-btn-text); cursor: pointer; list-style: none; transition: background-color 150ms ease, color 150ms ease; }
 .rv-btn::-webkit-details-marker { display: none; }
 .rv-btn:hover { background: var(--s-btn-hover); color: var(--s-btn-hover-text); border-color: var(--s-btn-hover); }
 .rv-btn--quiet { background: transparent; color: var(--s-heading); border-color: var(--s-border); }

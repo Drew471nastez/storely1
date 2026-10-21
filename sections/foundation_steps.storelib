@@ -1,7 +1,7 @@
 <template>
-<section class="fw fw-steps" data-scheme="{{ settings.color_scheme }}" style="--fw-bg:{{ scheme.bg }};--fw-title:{{ scheme.heading }};--fw-text:{{ scheme.text }};--fw-muted:{{ scheme.paragraph }};--fw-line:{{ scheme.border }};--fw-accent:{{ scheme.heading }};--fw-button:{{ scheme.primary_btn_bg }};--fw-button-text:{{ scheme.primary_btn_text }};--fw-radius:{{ theme.radius.medium }}px;--fw-top:{{ settings.padding_top }}px;--fw-bottom:{{ settings.padding_bottom }}px;"><div class="fw__inner">
+<section class="fw fw-steps" data-scheme="{{ settings.color_scheme }}" style="--fw-bg:{{ scheme.bg }};--fw-title:{{ scheme.heading }};--fw-text:{{ scheme.text }};--fw-muted:{{ scheme.paragraph }};--fw-line:{{ scheme.border }};--fw-accent:{{ scheme.accent }};--fw-button:{{ scheme.primary_btn_bg }};--fw-button-text:{{ scheme.primary_btn_text }};--fw-button-2:{{ scheme.secondary_btn_bg }};--fw-button-2-text:{{ scheme.secondary_btn_text }};--fw-button-2-border:{{ scheme.secondary_btn_border }};--fw-radius:{{ theme.radius.medium }}px;--fw-top:{{ settings.padding_top }}px;--fw-bottom:{{ settings.padding_bottom }}px;" data-btn="{{ theme.buttons.style }}" data-btn-hover="{{ theme.buttons.hover }}"><div class="fw__inner">
  <div class="fw-steps__intro">{% if settings.eyebrow %}<p class="fw__overline">{{ settings.eyebrow }}</p>{% endif %}<h2 class="fw__heading">{{ settings.heading }}</h2>{% if settings.body %}<p class="fw__lede">{{ settings.body }}</p>{% endif %}</div>
- <ol class="fw-steps__grid">{% for block in blocks %}<li class="fw-steps__card" data-block-id="{{ block.id }}"><span class="fw-steps__number">{{ forloop.index }}</span><strong>{{ block.settings.heading }}</strong><p>{{ block.settings.text }}</p></li>{% endfor %}</ol>
+ <ol class="fw-steps__grid">{% for block in blocks %}<li class="fw-steps__card" data-container data-block-id="{{ block.id }}"><span class="fw-steps__number">{{ forloop.index }}</span><strong>{{ block.settings.heading }}</strong><p>{{ block.settings.text }}</p></li>{% endfor %}</ol>
  </div></section>
 </template>
 
@@ -11,17 +11,23 @@
 .fw *{min-width:0;}
 .fw img{display:block;max-width:100%;}
 .fw a{color:inherit;}
-.fw__inner{max-width:var(--theme-page-width,1280px);padding:var(--fw-top) clamp(18px,4vw,48px) var(--fw-bottom);margin-inline:auto;}
-.fw__overline{margin:0 0 14px;font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--fw-accent);}
+.fw__inner{max-width:var(--theme-page-width,1280px);padding:calc(var(--fw-top) * var(--theme-spacing-scale, 1)) var(--theme-padding-x, 24px) calc(var(--fw-bottom) * var(--theme-spacing-scale, 1));margin-inline:auto;}
+.fw__overline{margin:0 0 14px;font-family:var(--sl-caption-font,var(--theme-font-accent,var(--theme-font-body))),sans-serif;font-size:var(--sl-caption-size,11px);font-weight:var(--sl-caption-weight,700);letter-spacing:var(--sl-caption-tracking,.16em);text-transform:var(--sl-caption-transform,uppercase);line-height:var(--sl-caption-line-height,1.4);color:var(--fw-accent);}
 .fw__heading{margin:0;color:var(--fw-title);font-family:var(--section-heading-font,var(--theme-font-heading)),sans-serif;font-size:var(--section-heading-size,clamp(30px,4.2cqi,56px));font-weight:var(--section-heading-weight,650);line-height:var(--section-heading-line-height,1.12);letter-spacing:var(--section-heading-tracking,-.044em);text-transform:var(--section-heading-transform,none);overflow-wrap:anywhere;}
 .fw__lede{max-width:57ch;margin:20px 0 0;font-family:var(--theme-font-body),sans-serif;font-size:var(--section-text-size,clamp(15px,1.45cqi,18px));line-height:var(--section-text-line-height,1.7);color:var(--fw-muted);}
-.fw__action{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:48px;padding:var(--sl-button-padding,12px 21px);text-decoration:none;border-radius:var(--theme-button-radius,var(--fw-radius));font-family:var(--theme-font-body),sans-serif;font-weight:var(--type-button-weight,650);font-size:var(--type-button-size,14px);letter-spacing:var(--type-button-tracking,0);text-transform:var(--type-button-transform,none);background:var(--fw-button);color:var(--fw-button-text)!important;border:1px solid var(--fw-button);box-shadow:var(--sl-btn-shadow,none);transition:background-color .18s ease,color .18s ease,border-color .18s ease,box-shadow .18s ease;}
+.fw__action{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:44px;padding:var(--sl-button-padding,12px 21px);text-decoration:none;border-radius:var(--theme-button-radius,var(--fw-radius));font-family:var(--theme-font-body),sans-serif;font-weight:var(--type-button-weight,var(--theme-button-weight,650));font-size:var(--type-button-size,var(--sl-button-size,14px));letter-spacing:var(--type-button-tracking,0);text-transform:var(--type-button-transform,none);line-height:var(--sl-button-line-height,1.2);background:var(--fw-button);color:var(--fw-button-text)!important;border:1px solid var(--fw-button);box-shadow:var(--sl-btn-shadow,none);transition:background-color .2s ease,color .2s ease,border-color .2s ease,box-shadow .2s ease,transform .2s ease;}
+.fw[data-btn="outline"] .fw__action:not(.fw__action--secondary){background:transparent;color:var(--fw-button)!important;}
+.fw[data-btn="ghost"] .fw__action:not(.fw__action--secondary){background:transparent;color:var(--fw-button)!important;border-color:transparent;}
 .fw__action:hover{background:var(--scheme-button-primary-hover,var(--fw-button));color:var(--scheme-button-primary-hover-text,var(--fw-button-text))!important;}
-.fw__action--secondary{background:transparent!important;color:var(--fw-title)!important;border-color:var(--fw-line);}
+.fw[data-btn-hover="lift"] .fw__action:hover{transform:translateY(-1px);}
+.fw[data-btn-hover="scale"] .fw__action:hover{transform:scale(1.015);}
+.fw[data-btn-hover="none"] .fw__action,.fw[data-btn-hover="none"] .fw__action:hover{transition:none;transform:none;}
+.fw__action--secondary{background:var(--fw-button-2,transparent)!important;color:var(--fw-button-2-text,var(--fw-title))!important;border-color:var(--fw-button-2-border,var(--fw-line));}
+.fw__action--secondary:hover{background:var(--scheme-button-secondary-hover,transparent)!important;color:var(--scheme-button-secondary-hover-text,var(--fw-title))!important;border-color:var(--scheme-button-secondary-border,var(--fw-line));}
 .fw a:focus-visible,.fw button:focus-visible,.fw summary:focus-visible,.fw input:focus-visible{outline:3px solid var(--fw-accent);outline-offset:4px;}
 @media(prefers-reduced-motion:reduce){.fw *, .fw *::before,.fw *::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important;}}
 
-.fw-steps__intro{text-align:center;max-width:670px;margin:0 auto 35px}.fw-steps__intro .fw__lede{margin-inline:auto}.fw-steps__grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.fw-steps__card{border:1px solid var(--fw-line);padding:30px 27px;border-radius:14px;min-height:220px}.fw-steps__number{display:grid;place-items:center;height:44px;width:44px;border-radius:50%;border:1px solid var(--fw-line);font-size:16px;margin-bottom:34px;color:var(--fw-title)}.fw-steps__card strong{display:block;color:var(--fw-title);font-size:20px;letter-spacing:-.035em}.fw-steps__card p{font-size:14px;line-height:1.7;color:var(--fw-muted);margin:11px 0 0}
+.fw-steps__intro{text-align:center;max-width:670px;margin:0 auto 35px}.fw-steps__intro .fw__lede{margin-inline:auto}.fw-steps__grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.fw-steps__card{border:1px solid var(--fw-line);padding:30px 27px;border-radius:var(--theme-radius, var(--fw-radius));min-height:220px}.fw-steps__number{display:grid;place-items:center;height:44px;width:44px;border-radius:50%;border:1px solid var(--fw-line);font-size:16px;margin-bottom:34px;color:var(--fw-title)}.fw-steps__card strong{display:block;color:var(--fw-title);font-family:var(--section-heading-font,var(--theme-font-heading)),sans-serif;font-size:var(--type-h4-size,20px);font-weight:var(--type-h4-weight,650);letter-spacing:var(--type-h4-tracking,-.035em)}.fw-steps__card p{font-size:var(--section-text-size,14px);line-height:var(--section-text-line-height,1.7);color:var(--fw-muted);margin:11px 0 0}
 @container(max-width:700px){.fw-steps__grid{grid-template-columns:1fr}.fw-steps__card{min-height:0}.fw-steps__number{margin-bottom:21px}}
 </style>
 
@@ -83,7 +89,7 @@
       "type": "select",
       "id": "animation",
       "label": "Scroll animation",
-      "default": "none",
+      "default": "theme",
       "options": [
         {"value": "theme", "label": "Theme setting"},
         {"value": "none", "label": "None"},

@@ -41,7 +41,8 @@
         "padding_top": 72,
         "button_label": "Browse our products",
         "color_scheme": "white",
-        "padding_bottom": 80
+        "padding_bottom": 80,
+        "animation": "theme"
       },
       "blocks": {
         "block-1": {

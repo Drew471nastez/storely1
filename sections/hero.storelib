@@ -3,7 +3,7 @@
   class="hero hero--{{ settings.layout }}{% if settings.full_height %} hero--full{% endif %}"
   data-scheme="{{ settings.color_scheme }}"
   style="{% if settings.bg_type == 'gradient' %}background: {% if settings.bg_gradient %}{{ settings.bg_gradient }}{% else %}linear-gradient(135deg, {{ settings.bg_color | default: scheme.bg }} 0%, {{ scheme.primary_btn_bg }} 100%){% endif %};{% elsif settings.bg_type == 'color' %}background: {{ settings.bg_color | default: scheme.bg }};{% endif %} --hero-text: {{ settings.text_color | default: scheme.heading }}; --hero-para: {{ settings.text_color | default: scheme.paragraph }}; --hero-ring: {{ settings.text_color | default: scheme.heading | alpha: 0.55 }}; --hero-heading-size: {{ settings.font_size_heading }}px; --hero-pad-top: {{ settings.padding_top }}px; --hero-pad-bottom: {{ settings.padding_bottom }}px;"
->
+ data-btn="{{ theme.buttons.style }}" data-btn-hover="{{ theme.buttons.hover }}">
   {% if settings.bg_type == 'video' and settings.bg_video %}
     <video class="hero__media" src="{{ settings.bg_video | asset }}" autoplay muted loop playsinline></video>
   {% elsif settings.bg_type == 'image' and settings.bg_image %}
