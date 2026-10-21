@@ -1,5 +1,5 @@
 <template>
-<section class="s" data-scheme="{{ settings.color_scheme }}" style="--s-bg: {{ scheme.bg }}; --s-text: {{ scheme.text }}; --s-heading: {{ scheme.heading }}; --s-para: {{ scheme.paragraph }}; --s-border: {{ scheme.border }}; --s-accent: {{ scheme.accent }}; --s-btn: {{ scheme.primary_btn_bg }}; --s-btn-text: {{ scheme.primary_btn_text }}; --s-btn2: {{ scheme.secondary_btn_bg }}; --s-btn2-text: {{ scheme.secondary_btn_text }}; --s-btn2-border: {{ scheme.secondary_btn_border }}; --s-btn-hover: {{ scheme.primary_btn_hover_bg }}; --s-btn-hover-text: {{ scheme.primary_btn_hover_text }}; --s-btn2-hover: {{ scheme.secondary_btn_hover_bg }}; --s-btn2-hover-text: {{ scheme.secondary_btn_hover_text }}; --s-radius: {{ theme.radius.medium }}px; --s-pt: {{ settings.padding_top }}px; --s-pb: {{ settings.padding_bottom }}px; --cols-d: {{ settings.columns.desktop }}; --cols-t: {{ settings.columns.tablet }}; --cols-m: {{ settings.columns.mobile }};">
+<section class="s" data-scheme="{{ settings.color_scheme }}" style="--s-bg: {{ scheme.bg }}; --s-text: {{ scheme.text }}; --s-heading: {{ scheme.heading }}; --s-para: {{ scheme.paragraph }}; --s-border: {{ scheme.border }}; --s-accent: {{ scheme.accent }}; --s-btn: {{ scheme.primary_btn_bg }}; --s-btn-text: {{ scheme.primary_btn_text }}; --s-btn2: {{ scheme.secondary_btn_bg }}; --s-btn2-text: {{ scheme.secondary_btn_text }}; --s-btn2-border: {{ scheme.secondary_btn_border }}; --s-btn-hover: {{ scheme.primary_btn_hover_bg }}; --s-btn-hover-text: {{ scheme.primary_btn_hover_text }}; --s-btn2-hover: {{ scheme.secondary_btn_hover_bg }}; --s-btn2-hover-text: {{ scheme.secondary_btn_hover_text }}; --s-radius: {{ theme.radius.medium }}px; --s-pt: {{ settings.padding_top }}px; --s-pb: {{ settings.padding_bottom }}px; --cols-d: {{ settings.columns.desktop }}; --cols-t: {{ settings.columns.tablet }}; --cols-m: {{ settings.columns.mobile }};" data-btn="{{ theme.buttons.style }}" data-btn-hover="{{ theme.buttons.hover }}">
   <div class="s__in s__in--{{ settings.max_width }}">
     {% if settings.eyebrow or settings.heading or settings.subheading %}
       <div class="s__head {% if settings.align == 'center' %}s__head--center{% endif %} s__headblock">
@@ -13,7 +13,7 @@
     {% else %}
       <div class="grid gal" style="--gap: {{ settings.gap }}px;">
         {% for block in blocks %}
-          <figure class="gal__i" data-block-id="{{ block.id }}" style="aspect-ratio: {{ settings.shape }};">
+          <figure class="gal__i" data-block-id="{{ block.id }}" style="aspect-ratio: {{ settings.shape }};" data-media>
             {% if block.settings.image %}
               {% if block.settings.url %}<a href="{{ block.settings.url | url }}"><img src="{{ block.settings.image | asset }}" alt="{{ block.settings.alt }}" loading="lazy" decoding="async"></a>
               {% else %}<img src="{{ block.settings.image | asset }}" alt="{{ block.settings.alt }}" loading="lazy" decoding="async">{% endif %}
@@ -59,8 +59,8 @@
 .s__head--center .s__btns { justify-content: center; }
 .s__btn {
   display: inline-flex; align-items: center; justify-content: center;
-  padding: var(--sl-button-padding, 13px 24px); font-size: var(--sl-button-size, 15px); line-height: var(--sl-button-line-height); font-weight: var(--theme-button-weight, 600); text-decoration: none;
-  border-radius: var(--s-radius); border: 1px solid transparent; transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
+  padding: var(--sl-button-padding, 13px 24px); font-size: var(--sl-button-size, 15px); line-height: var(--sl-button-line-height); font-family: var(--theme-font-body), sans-serif; font-weight: var(--type-button-weight, var(--theme-button-weight, 600)); letter-spacing: var(--type-button-tracking, 0); text-transform: var(--type-button-transform, none); text-decoration: none;
+  border-radius: var(--theme-button-radius, var(--s-radius)); box-shadow: var(--sl-btn-shadow, none); border: 1px solid transparent; transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
 }
 /* Each button's hover colours come from the scheme, after the section's own
    Advanced colors: automatic until somebody chooses them. */
@@ -83,7 +83,7 @@
 .empty { margin: 0; text-align: center; font-size: 14px; color: var(--s-para); opacity: 0.55; }
 
 .gal { gap: var(--gap); }
-.gal__i { position: relative; margin: 0; overflow: hidden; border-radius: var(--s-radius); background: var(--s-border); }
+.gal__i { position: relative; margin: 0; overflow: hidden; border-radius: var(--theme-image-radius, var(--sl-image-radius, var(--s-radius))); background: var(--s-border); }
 .gal__i img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .gal__i figcaption {
   position: absolute; inset: auto 0 0 0; padding: 18px 12px 10px; font-size: 12px; color: #fff;
@@ -97,6 +97,12 @@
 .s button, .s input, .s select, .s textarea { max-width: 100%; }
 .s :focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
 @media (prefers-reduced-motion: reduce) { .s *, .s *::before, .s *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+
+.s[data-btn="outline"] .s__btn--primary{background:transparent;color:var(--s-btn);border-color:var(--s-btn);}
+.s[data-btn="ghost"] .s__btn--primary{background:transparent;color:var(--s-btn);border-color:transparent;}
+.s[data-btn-hover="lift"] .s__btn:hover{transform:translateY(-1px);}
+.s[data-btn-hover="scale"] .s__btn:hover{transform:scale(1.015);}
+.s[data-btn-hover="none"] .s__btn,.s[data-btn-hover="none"] .s__btn:hover{transition:none;transform:none;}
 </style>
 
 <schema>

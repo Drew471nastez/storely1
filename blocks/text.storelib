@@ -13,6 +13,7 @@
 <style>
 .sl-text {
   color: var(--text-color, var(--s-para, inherit));
+  font-family: var(--theme-font-body), sans-serif;
   font-size: var(--section-text-size, 17px);
   line-height: var(--section-text-line-height, 1.6);
   max-width: 44rem;
@@ -20,8 +21,8 @@
 }
 .sl-text--center { margin-inline: auto; text-align: center; }
 .sl-text--right { margin-left: auto; text-align: right; }
-.sl-text--small { font-size: 14px; }
-.sl-text--large { font-size: 20px; }
+.sl-text--small { font-size: var(--type-body-small-size, 14px); line-height: var(--type-body-small-line-height, 1.5); }
+.sl-text--large { font-size: var(--type-body-large-size, 18px); line-height: var(--type-body-large-line-height, 1.6); }
 .sl-text p { margin: 0 0 0.75em; }
 .sl-text p:last-child { margin-bottom: 0; }
 .sl-text a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }

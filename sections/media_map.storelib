@@ -1,5 +1,5 @@
 <template>
-<section class="s" data-scheme="{{ settings.color_scheme }}" style="--s-bg: {{ scheme.bg }}; --s-text: {{ scheme.text }}; --s-heading: {{ scheme.heading }}; --s-para: {{ scheme.paragraph }}; --s-border: {{ scheme.border }}; --s-accent: {{ scheme.accent }}; --s-radius: {{ theme.radius.medium }}px; --s-pt: {{ settings.padding_top }}px; --s-pb: {{ settings.padding_bottom }}px; --map-h: {{ settings.map_height }}px;">
+<section class="s" data-scheme="{{ settings.color_scheme }}" style="--s-bg: {{ scheme.bg }}; --s-text: {{ scheme.text }}; --s-heading: {{ scheme.heading }}; --s-para: {{ scheme.paragraph }}; --s-border: {{ scheme.border }}; --s-accent: {{ scheme.accent }}; --s-radius: {{ theme.radius.medium }}px; --s-pt: {{ settings.padding_top }}px; --s-pb: {{ settings.padding_bottom }}px; --map-h: {{ settings.map_height }}px;" data-btn="{{ theme.buttons.style }}" data-btn-hover="{{ theme.buttons.hover }}">
   <div class="s__in s__in--{{ settings.max_width }}">
     {% if settings.eyebrow or settings.heading or settings.subheading %}
       <div class="s__head {% if settings.align == 'center' %}s__head--center{% endif %} s__headblock">
@@ -11,7 +11,7 @@
     {# The address is the map: no key, no embed code, no link to find. A
        pasted Google Maps link works too. The `map` filter turns either into
        Google's own embed, and `embed` is what keeps the frame on Google. #}
-    <div class="map">
+    <div class="map" data-media>
       {% if settings.address %}
         <iframe src="{{ settings.address | map | embed }}" title="{{ settings.heading | default: settings.address }}" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       {% elsif page.in_editor %}<div class="map__empty">Type an address in the sidebar</div>{% endif %}
@@ -52,7 +52,7 @@
 
 .s__headblock { margin-bottom: 40px; }
 
-.map { position: relative; height: var(--map-h, 420px); overflow: hidden; border-radius: var(--s-radius); background: var(--s-border); }
+.map { position: relative; height: var(--map-h, 420px); overflow: hidden; border-radius: var(--theme-image-radius, var(--sl-image-radius, var(--s-radius))); background: var(--s-border); }
 .map iframe { display: block; width: 100%; height: 100%; border: 0; }
 .map__empty { display: flex; align-items: center; justify-content: center; height: 100%; font-size: 14px; color: var(--s-para); opacity: 0.55; }
 .map__cap { margin: 14px 0 0; text-align: center; font-size: 14px; color: var(--s-para); }
